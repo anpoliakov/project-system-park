@@ -3,27 +3,27 @@ package models.entity;
 import java.util.Date;
 
 public class Plant {
-    private int id;
+    private long id;
     private String name;
     private String description;
     private Date planting;
     private Date survey;
-    private Park park;
+    private long parkId;
 
-    public Plant(int id, String name, String description, Date planting, Date survey, Park park) {
+    public Plant(long id, String name, String description, Date planting, Date survey, long parkId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.planting = planting;
         this.survey = survey;
-        this.park = park;
+        this.parkId = parkId;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -59,11 +59,11 @@ public class Plant {
         this.survey = survey;
     }
 
-    public Park getPark() {
-        return park;
+    public long getParkId() {
+        return parkId;
     }
 
-    public void setPark(Park park) {
-        this.park = park;
+    public void setParkId(long parkId) {
+        this.parkId = parkId;
     }
 }

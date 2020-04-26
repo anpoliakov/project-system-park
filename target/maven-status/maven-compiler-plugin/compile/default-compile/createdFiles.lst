@@ -1,0 +1,9 @@
+models\entity\Role.class
+models\entity\Action.class
+models\entity\Participants.class
+models\entity\Plant.class
+models\entity\Person.class
+models\ConfigurationManager.class
+models\factory\DAOFactory.class
+models\entity\Park.class
+models\entity\Task.class
