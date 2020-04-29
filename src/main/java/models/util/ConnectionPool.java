@@ -95,7 +95,7 @@ public class ConnectionPool {
         }
     }
 
-    public static void closeResultSet(ResultSet rs) {
+    public void closeResultSet(ResultSet rs) {
         if (rs != null) {
             try {
                 rs.close();

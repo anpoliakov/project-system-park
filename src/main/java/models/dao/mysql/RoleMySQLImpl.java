@@ -17,11 +17,11 @@ public class RoleMySQLImpl extends GenericMySQLImpl implements RoleDAO {
     @Override
     public int addRole(Role role) {
         String requestSQL = manager.getSQLRequest("ADD_ROLE");
-        Connection connection = pool.getConnection();
         int reusltOperation = Constants.DEFAULT_OPERATION;
 
         if(getRoleByName(role.getName()) == null){ //проверяю есть ли с таким именем role
-            System.out.println("результат метода getRoleByName == null" ); // !!!!!!!!!!!!!!!!!
+            Connection connection = pool.getConnection();
+
             try(PreparedStatement statement = connection.prepareStatement(requestSQL)) {
                 statement.setString(1, getPreparedName(role.getName()));
 
@@ -45,31 +45,79 @@ public class RoleMySQLImpl extends GenericMySQLImpl implements RoleDAO {
         String requestSQL = manager.getSQLRequest("GET_ROLE_BY_NAME");
         Connection connection = pool.getConnection();
         Role role = null;
-        ResultSet resultSet = null;
 
         try(PreparedStatement statement = connection.prepareStatement(requestSQL)) {
             statement.setString(1, getPreparedName(name));
-            resultSet = statement.executeQuery();
-
-            if (resultSet.next()){
-                System.out.println("имя " + getPreparedName(name) + " найдено в БД");
-                int idFromDB = resultSet.getInt("id");
-                String nameFromDB = resultSet.getString("name");
-                role = new Role (idFromDB, nameFromDB);
-            }
-
+            role = getRoleByStatement(statement);
         } catch (SQLException e) {
             logger.error("Error in PreparedStatement or ResultSet, look that class",e);
         }finally {
-            pool.closeResultSet(resultSet);
             pool.returnConnection(connection);
         }
         return role;
     }
 
+    @Override
+    public Role getRoleById(int id) {
+        String requestSQL = manager.getSQLRequest("GET_ROLE_BY_ID");
+        Connection connection = pool.getConnection();
+        Role role = null;
+
+        try (PreparedStatement statement = connection.prepareStatement(requestSQL)) {
+            statement.setInt(1, id);
+            role = getRoleByStatement(statement);
+        }catch (SQLException e){
+            logger.error("Error in PreparedStatement, look that class",e);
+        }finally {
+            pool.returnConnection(connection);
+        }
+        return role;
+    }
+
+    @Override
+    public boolean deleteRoleByID(int id) {
+        String requestSQL = manager.getSQLRequest("DELETE_ROLE_BY_ID");
+        boolean complSuccess = false;
+        Connection connection = pool.getConnection();
+
+        try(PreparedStatement statement = connection.prepareStatement(requestSQL)){
+            statement.setInt(1,id);
+
+            if(statement.executeUpdate() > 0) {
+                complSuccess = true;
+            }
+        }catch (SQLException e){
+            logger.error("Error in PreparedStatement, look that class",e);
+        }finally {
+            pool.returnConnection(connection);
+        }
+        return complSuccess;
+    }
+
     //нужно ли тут выбрасывать исключение - если передал null обьект ????
     private String getPreparedName(String name){
         return name.toUpperCase().trim();
+    }
+
+
+    // кидаем готовый PreparedStatement - он выполняет поиск и возвращает готовую Role
+    private Role getRoleByStatement(PreparedStatement statement){
+        Role role = null;
+        ResultSet resultSet = null;
+
+        try {
+            resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                int idFromDB = resultSet.getInt("id");
+                String nameFromDB = resultSet.getString("name");
+                role = new Role (idFromDB, nameFromDB);
+            }
+        } catch (SQLException e) {
+            logger.error("getRoleByStatement method error in ResultSet",e);
+        }finally {
+            pool.closeResultSet(resultSet);
+        }
+        return role;
     }
 
 }

@@ -1,11 +1,12 @@
 package models.dao;
 
+import models.entity.Action;
 import java.util.List;
 
 public interface ActionDAO {
-    int add(ActionDAO action);
-    ActionDAO getById(long id);
-    boolean update(ActionDAO action);
-    boolean deleteById(long id);
-    List<ActionDAO> getAll();
+    int addAction(Action action);
+    Action getActionById(int id);
+    Action getActionByName(String name);
+    boolean deleteActionById(int id);
+    List<Action> getListAction();
 }
