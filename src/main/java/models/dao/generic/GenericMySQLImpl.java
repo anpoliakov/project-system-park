@@ -1,25 +1,18 @@
 package models.dao.generic;
 
-public abstract class GenericMySQLImpl<T> implements GenericDAO <T>{
-    //в классе прописывается путь к connection pool
+import models.util.ConfigurationManager;
+import models.util.ConnectionPool;
 
-    @Override
-    public int create(T t) {
-        return 0;
+import java.util.List;
+
+public abstract class GenericMySQLImpl <T> implements GenericDAO <T>{
+    // поле доступно наследникам и текущему классу
+    protected ConnectionPool pool;
+    protected ConfigurationManager manager;
+
+    public GenericMySQLImpl() {
+        pool = ConnectionPool.getInstance();
+        manager = ConfigurationManager.getInstance();
     }
 
-    @Override
-    public T read(long id) {
-        return null;
-    }
-
-    @Override
-    public boolean update(T t) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(long id) {
-        return false;
-    }
 }

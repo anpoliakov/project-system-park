@@ -1,10 +1,13 @@
 package models.util;
 
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public final class ConfigurationManager {
+    final static Logger logger = Logger.getLogger(ConfigurationManager.class);
     private static volatile ConfigurationManager instance;
     private Properties properties;
 
@@ -24,14 +27,14 @@ public final class ConfigurationManager {
             properties.load(streamConfigDataBase);
             properties.load(streamRequestsSQL);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Путь не найден", e);
         }finally {
             if(streamConfigDataBase != null){
                 try {
                     streamConfigDataBase.close();
                     streamRequestsSQL.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error("Не удалось закрыть поток", e);
                 }
             }
         }

@@ -1,37 +1,37 @@
 package models.entity;
 
 public class Participants {
-    private long id;
-    private long fromParticipantId;
-    private long forParticipantId;
+    private int id;
+    private int fromParticipantId;
+    private int forParticipantId;
 
-    public Participants(long id, long fromParticipant, long forParticipant) {
+    public Participants(int id, int fromParticipant, int forParticipant) {
         this.id = id;
         this.fromParticipantId = fromParticipant;
         this.forParticipantId = forParticipant;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public long getFromParticipantId() {
+    public int getFromParticipantId() {
         return fromParticipantId;
     }
 
-    public void setFromParticipantId(long fromParticipantId) {
+    public void setFromParticipantId(int fromParticipantId) {
         this.fromParticipantId = fromParticipantId;
     }
 
-    public long getForParticipantId() {
+    public int getForParticipantId() {
         return forParticipantId;
     }
 
-    public void setForParticipantId(long forParticipantId) {
+    public void setForParticipantId(int forParticipantId) {
         this.forParticipantId = forParticipantId;
     }
 }

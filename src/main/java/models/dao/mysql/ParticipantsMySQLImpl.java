@@ -1,13 +1,8 @@
 package models.dao.mysql;
 
-import models.dao.Participants;
+import models.dao.ParticipantsDAO;
 import models.dao.generic.GenericMySQLImpl;
-import models.util.ConnectionPool;
 
-public class ParticipantsMySQLImpl extends GenericMySQLImpl implements Participants {
-    private ConnectionPool pool;
+public class ParticipantsMySQLImpl extends GenericMySQLImpl implements ParticipantsDAO {
 
-    public ParticipantsMySQLImpl(ConnectionPool pool) {
-        this.pool = pool;
-    }
 }

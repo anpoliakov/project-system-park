@@ -2,16 +2,16 @@ package models.entity;
 
 
 public class Person {
-    private long id;
+    private int id;
     private String name;
     private String middleName;
     private String lastName;
     private String login;
     private String password;
     private String email;
-    private long roleId;
+    private Role role;
 
-    public Person(Long id, String name, String middleName, String lastName, String login, String password, String email, long roleId) {
+    public Person(int id, String name, String middleName, String lastName, String login, String password, String email, Role role) {
         this.id = id;
         this.name = name;
         this.middleName = middleName;
@@ -19,24 +19,24 @@ public class Person {
         this.login = login;
         this.password = password;
         this.email = email;
-        this.roleId = roleId;
+        this.role = role;
     }
 
-    public Person(String name, String middleName, String lastName, String login, String password, String email, long roleId) {
+    public Person(String name, String middleName, String lastName, String login, String password, String email, Role role) {
         this.name = name;
         this.middleName = middleName;
         this.lastName = lastName;
         this.login = login;
         this.password = password;
         this.email = email;
-        this.roleId = roleId;
+        this.role = role;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -88,12 +88,12 @@ public class Person {
         this.email = email;
     }
 
-    public long getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(long roleId) {
-        this.roleId = roleId;
+    public void setRoleId(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class Person {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", roleId=" + roleId +
+                ", role=" + role +
                 '}';
     }
 }

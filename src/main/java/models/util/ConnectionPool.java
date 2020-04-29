@@ -1,12 +1,13 @@
 package models.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import org.apache.log4j.Logger;
+
+import java.sql.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class ConnectionPool {
+    final static Logger logger = Logger.getLogger(ConnectionPool.class);
     private static volatile ConnectionPool instance;
     private ConfigurationManager confManager;
     
@@ -20,20 +21,18 @@ public class ConnectionPool {
 
     private ConnectionPool() {
         confManager = ConfigurationManager.getInstance();
-        listConnections = new ArrayBlockingQueue<>(sizePool);
-
         userNameDB = confManager.getUserNameDB();
         passwordDB = confManager.getPasswordDB();
         driverDB = confManager.getDriverDB();
         urlDB = confManager.getUrlDB();
         sizePool = confManager.getSizePool();
-
+        listConnections = new ArrayBlockingQueue<Connection>(sizePool);
         try {
             Class.forName(driverDB);
             fillPool();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            /* Log4j */
+            logger.error("Failed to load the class in ClassLoader", e);
         }
     }
 
@@ -50,12 +49,11 @@ public class ConnectionPool {
 
     private Connection createConnection(){
         Connection connection = null;
-
         try {
             connection = DriverManager.getConnection(urlDB, userNameDB, passwordDB);
         } catch (SQLException e) {
             e.printStackTrace();
-            /* Log4j */
+            logger.error("Not access to data base", e);
         }
         return connection;
     }
@@ -66,7 +64,7 @@ public class ConnectionPool {
                 listConnections.put(createConnection());
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                /* Log4j */
+                logger.error("Failed to insert a connection in the connection list", e);
             }
         }
     }
@@ -76,24 +74,45 @@ public class ConnectionPool {
             Connection connect = null;
             try {
                 connect = listConnections.take();
+                System.out.println("INFO (ConnectionPool, 77 line): Connection is obtained > ");
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                /* Log4j */
+                logger.error("Failed to get a connection from list connections", e);
             }
             return connect;
         }
     }
 
     public void returnConnection(Connection connection){
-        try {
-            listConnections.put(connection);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            /* Log4j */
+        if(connection != null){
+            try {
+                listConnections.put(connection);
+                System.out.println("INFO (ConnectionPool, 90 line): Connection returned < ");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                logger.error("Failed to return the connection to the list", e);
+            }
         }
     }
 
-
+    public static void closeResultSet(ResultSet rs) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 
 
+//    public static void closeStatement(Statement st) {
+//        if (st != null) {
+//            try {
+//                st.close();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }

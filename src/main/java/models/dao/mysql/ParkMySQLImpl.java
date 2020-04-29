@@ -1,13 +1,8 @@
 package models.dao.mysql;
 
-import models.dao.Park;
+import models.dao.ParkDAO;
 import models.dao.generic.GenericMySQLImpl;
-import models.util.ConnectionPool;
 
-public class ParkMySQLImpl extends GenericMySQLImpl implements Park {
-    private ConnectionPool pool;
+public class ParkMySQLImpl extends GenericMySQLImpl implements ParkDAO {
 
-    public ParkMySQLImpl(ConnectionPool pool) {
-        this.pool = pool;
-    }
 }

@@ -2,47 +2,44 @@ package models.factory;
 
 import models.dao.*;
 import models.dao.mysql.*;
-import models.util.ConnectionPool;
 
 public class FactoryMySQL extends FactoryAbstract {
-    private ConnectionPool pool;
 
-    public FactoryMySQL() {
-        pool = ConnectionPool.getInstance();
+    public FactoryMySQL(){
     }
 
     @Override
-    public Action getActionDAOImpl() {
-        return new ActionMySQLImpl(pool);
+    public ActionDAO getActionDAOImpl() {
+        return new ActionMySQLImpl();
     }
 
     @Override
-    public Park getParkDAOImpl() {
-        return new ParkMySQLImpl(pool);
+    public ParkDAO getParkDAOImpl() {
+        return new ParkMySQLImpl();
     }
 
     @Override
-    public Participants getParticipantsDAOImpl() {
-        return new ParticipantsMySQLImpl(pool);
+    public ParticipantsDAO getParticipantsDAOImpl() {
+        return new ParticipantsMySQLImpl();
     }
 
     @Override
-    public Person getPersonDAOImpl() {
-        return new PersonMySQLImpl(pool);
+    public PersonDAO getPersonDAOImpl() {
+        return new PersonMySQLImpl();
     }
 
     @Override
-    public Plant getPlantDAOImpl() {
-        return new PlantMySQLImpl(pool);
+    public PlantDAO getPlantDAOImpl() {
+        return new PlantMySQLImpl();
     }
 
     @Override
-    public Role getRoleDAOImpl() {
-        return new RoleMySQLImpl(pool);
+    public RoleDAO getRoleDAOImpl() {
+        return new RoleMySQLImpl();
     }
 
     @Override
-    public Task getTaskDAOImpl() {
-        return new TaskMySQLImpl(pool);
+    public TaskDAO getTaskDAOImpl() {
+        return new TaskMySQLImpl();
     }
 }

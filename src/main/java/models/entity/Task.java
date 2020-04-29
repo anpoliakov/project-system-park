@@ -1,13 +1,13 @@
 package models.entity;
 
 public class Task {
-    private long id;
-    private long actionId;
-    private long participantsId;
-    private long plantId;
+    private int id;
+    private int actionId;
+    private int participantsId;
+    private int plantId;
     private boolean status;
 
-    public Task(long id, long action, long participants, long plant, boolean status) {
+    public Task(int id, int action, int participants, int plant, boolean status) {
         this.id = id;
         this.actionId = action;
         this.participantsId = participants;
@@ -15,35 +15,35 @@ public class Task {
         this.status = status;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public long getActionId() {
+    public int getActionId() {
         return actionId;
     }
 
-    public void setActionId(long actionId) {
+    public void setActionId(int actionId) {
         this.actionId = actionId;
     }
 
-    public long getParticipantsId() {
+    public int getParticipantsId() {
         return participantsId;
     }
 
-    public void setParticipantsId(long participantsId) {
+    public void setParticipantsId(int participantsId) {
         this.participantsId = participantsId;
     }
 
-    public long getPlantId() {
+    public int getPlantId() {
         return plantId;
     }
 
-    public void setPlantId(long plantId) {
+    public void setPlantId(int plantId) {
         this.plantId = plantId;
     }
 

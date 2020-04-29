@@ -3,10 +3,10 @@ package models.entity;
 import java.util.Objects;
 
 public class Action {
-    private long  id;
+    private int  id;
     private String name;
 
-    public Action(long  id, String name) {
+    public Action(int  id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -15,11 +15,11 @@ public class Action {
         this.name = name;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

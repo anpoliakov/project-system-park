@@ -1,21 +1,21 @@
 package models.entity;
 
 public class Park {
-    private long  id;
+    private int  id;
     private String name;
-    private long  ownerId;
+    private int  ownerId;
 
-    public Park(long  id, String name, long  owner) {
+    public Park(int  id, String name, int  owner) {
         this.id = id;
         this.name = name;
         this.ownerId = owner;
     }
 
-    public long  getId() {
+    public int  getId() {
         return id;
     }
 
-    public void setId(long  id) {
+    public void setId(int  id) {
         this.id = id;
     }
 
@@ -27,11 +27,11 @@ public class Park {
         this.name = name;
     }
 
-    public long  getOwnerId() {
+    public int  getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(long  ownerId) {
+    public void setOwnerId(int  ownerId) {
         this.ownerId = ownerId;
     }
 }
