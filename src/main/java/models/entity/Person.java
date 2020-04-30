@@ -9,9 +9,9 @@ public class Person {
     private String login;
     private String password;
     private String email;
-    private Role role;
+    private int roleId;
 
-    public Person(int id, String name, String middleName, String lastName, String login, String password, String email, Role role) {
+    public Person(int id, String name, String middleName, String lastName, String login, String password, String email, int roleId) {
         this.id = id;
         this.name = name;
         this.middleName = middleName;
@@ -19,17 +19,17 @@ public class Person {
         this.login = login;
         this.password = password;
         this.email = email;
-        this.role = role;
+        this.roleId = roleId;
     }
 
-    public Person(String name, String middleName, String lastName, String login, String password, String email, Role role) {
+    public Person(String name, String middleName, String lastName, String login, String password, String email, int roleId) {
         this.name = name;
         this.middleName = middleName;
         this.lastName = lastName;
         this.login = login;
         this.password = password;
         this.email = email;
-        this.role = role;
+        this.roleId = roleId;
     }
 
     public int getId() {
@@ -88,12 +88,12 @@ public class Person {
         this.email = email;
     }
 
-    public Role getRole() {
-        return role;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setRoleId(Role role) {
-        this.role = role;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class Person {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", role=" + role +
+                ", roleId=" + roleId +
                 '}';
     }
 }

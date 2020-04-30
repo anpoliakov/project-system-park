@@ -1,6 +1,7 @@
 package models.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Plant {
     private int id;
@@ -65,5 +66,21 @@ public class Plant {
 
     public void setParkId(int parkId) {
         this.parkId = parkId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Plant plant = (Plant) o;
+        return id == plant.id &&
+                parkId == plant.parkId &&
+                Objects.equals(planting, plant.planting) &&
+                Objects.equals(survey, plant.survey);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, planting, survey, parkId);
     }
 }

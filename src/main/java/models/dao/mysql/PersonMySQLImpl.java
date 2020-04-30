@@ -3,59 +3,55 @@ package models.dao.mysql;
 import models.dao.PersonDAO;
 import models.dao.generic.GenericMySQLImpl;
 import models.entity.Person;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 public class PersonMySQLImpl extends GenericMySQLImpl implements PersonDAO {
-
+    final static Logger logger = Logger.getLogger(PersonMySQLImpl.class);
 
     @Override
-    public int add(Person person) {
-        String requestSQL = manager.getSQLRequest("ADD");
-        Connection connection = pool.getConnection();
-        int result = 0;
-
-        try(PreparedStatement statement = connection.prepareStatement(requestSQL)) {
-
-            statement.setString(1, "parksystem.people");
-            statement.setString(2, "name");
-            statement.setString(3, "middle_name");
-            statement.setString(4, "last_name");
-            statement.setString(5, "login");
-            statement.setString(6, "password");
-            statement.setString(7, "email");
-            statement.setString(8, "role");
-
-            statement.setString(9, person.getName());
-            statement.setString(10, person.getMiddleName());
-            statement.setString(11, person.getLastName());
-            statement.setString(12, person.getLogin());
-            statement.setString(13, person.getPassword());
-            statement.setString(14, person.getEmail());
-//            statement.setInt(15, person.getRoleId());
-
-            result = statement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            pool.returnConnection(connection);
-        }
-
-        return result;
+    public int addPerson(Person person) {
+        // остановился тут
+        return 0;
     }
 
     @Override
-    public Person getById(int id) {
+    public Person getPersonById(int id) {
         return null;
     }
 
     @Override
-    public boolean update(Person person) {
-        return false;
+    public Person getPersonByLogPass(String login, String password) {
+        String requestSQL = manager.getSQLRequest("GET_PERSON_BY_LOGIN_PASSW");
+        Connection connection = pool.getConnection();
+        ResultSet resultSet = null;
+        Person person = null;
+
+        try(PreparedStatement statement = connection.prepareStatement(requestSQL)) {
+            statement.setString(1, login);
+            statement.setString(2, password);
+            resultSet = statement.executeQuery();
+
+            if(resultSet.next()){
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String middleName = resultSet.getString("middle_name");
+                String last_name = resultSet.getString("last_name");
+                String email = resultSet.getString("email");
+                int role = resultSet.getInt("role");
+                person = new Person(id,name,middleName,last_name,login,password,email,role);
+            }
+        } catch (SQLException e) {
+            logger.error("Error in PreparedStatement, look ActionMySQLImpl class",e);
+        }finally {
+            pool.closeResultSet(resultSet);
+            pool.returnConnection(connection);
+        }
     }
 
     @Override

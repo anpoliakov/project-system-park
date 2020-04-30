@@ -5,9 +5,11 @@ import models.entity.Person;
 import java.util.List;
 
 public interface PersonDAO {
-    int add(Person person);
-    Person getById(int id);
-    boolean update(Person person);
+    int addPerson(Person person);
+    Person getPersonById(int id);
+    Person getPersonByLogPass(String login, String password);
+    //boolean updatePerson(Person person);
     boolean deleteById(int id);
     List<Person> getAll();
+
 }

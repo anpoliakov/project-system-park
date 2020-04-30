@@ -3,12 +3,17 @@ package models.entity;
 public class Park {
     private int  id;
     private String name;
-    private int  ownerId;
+    private int ownerId;
 
     public Park(int  id, String name, int  owner) {
         this.id = id;
         this.name = name;
         this.ownerId = owner;
+    }
+
+    public Park(String name, int ownerId) {
+        this.name = name;
+        this.ownerId = ownerId;
     }
 
     public int  getId() {
