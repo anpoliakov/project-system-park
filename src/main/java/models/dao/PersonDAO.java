@@ -10,6 +10,6 @@ public interface PersonDAO {
     Person getPersonByLogPass(String login, String password);
     //boolean updatePerson(Person person);
     boolean deleteById(int id);
-    List<Person> getAll();
+    List<Person> getPersonsByRole(int roleId);
 
 }

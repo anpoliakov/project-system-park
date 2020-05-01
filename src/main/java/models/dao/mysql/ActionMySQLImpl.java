@@ -93,13 +93,14 @@ public class ActionMySQLImpl extends GenericMySQLImpl <Action> implements Action
 
     @Override
     public List<Action> getListAction() {
-        List <Action> listActions = new ArrayList<>();
         String requestSQL = manager.getSQLRequest("GET_ALL_ACTIONS");
         Connection connection = pool.getConnection();
+        List <Action> listActions = null;
         ResultSet resultSet = null;
 
         try(Statement statement = connection.createStatement()){
             resultSet = statement.executeQuery(requestSQL);
+            listActions = new ArrayList<>();
 
             while(resultSet.next()) {
                 int idFromDB = resultSet.getInt("id");
