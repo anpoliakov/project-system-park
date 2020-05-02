@@ -17,17 +17,21 @@ public class PersonMySQLImpl extends GenericMySQLImpl implements PersonDAO {
     public int addPerson(Person person) {
         String requestSQL = manager.getSQLRequest("ADD_PERSON");
         int reusltOperation = Constants.DEFAULT_OPERATION;
+        String login = person.getLogin();
+        String password = person.getPassword();
+        String email = person.getEmail();
 
-        if(getPersonByLogPass(person.getLogin(), person.getPassword()) == null){
+
+        if(getPersonByLogPassEmail(login, password, email) == null){
             Connection connection = pool.getConnection();
 
             try(PreparedStatement statement = connection.prepareStatement(requestSQL)) {
                 statement.setString(1, person.getName());
                 statement.setString(2, person.getMiddleName());
                 statement.setString(3, person.getLastName());
-                statement.setString(4, person.getLogin());
-                statement.setString(5, person.getPassword());
-                statement.setString(6, person.getEmail());
+                statement.setString(4, login);
+                statement.setString(5, password);
+                statement.setString(6, email);
                 statement.setInt(7, person.getRoleId());
 
                 if(statement.executeUpdate() > 0){
@@ -75,8 +79,8 @@ public class PersonMySQLImpl extends GenericMySQLImpl implements PersonDAO {
     }
 
     @Override
-    public Person getPersonByLogPass(String login, String password) {
-        String requestSQL = manager.getSQLRequest("GET_PERSON_BY_LOGIN_PASSW");
+    public Person getPersonByLogPassEmail(String login, String password,String email) {
+        String requestSQL = manager.getSQLRequest("GET_PERSON_BY_LOGIN_PASSW_EMAIL");
         Connection connection = pool.getConnection();
         ResultSet resultSet = null;
         Person person = null;
@@ -84,6 +88,7 @@ public class PersonMySQLImpl extends GenericMySQLImpl implements PersonDAO {
         try(PreparedStatement statement = connection.prepareStatement(requestSQL)) {
             statement.setString(1, login);
             statement.setString(2, password);
+            statement.setString(3, email);
             resultSet = statement.executeQuery();
 
             if(resultSet.next()){
@@ -91,7 +96,6 @@ public class PersonMySQLImpl extends GenericMySQLImpl implements PersonDAO {
                 String name = resultSet.getString("name");
                 String middleName = resultSet.getString("middle_name");
                 String last_name = resultSet.getString("last_name");
-                String email = resultSet.getString("email");
                 int role = resultSet.getInt("role");
                 person = new Person(id,name,middleName,last_name,login,password,email,role);
             }
