@@ -2,13 +2,18 @@ package models.entity;
 
 public class Participants {
     private int id;
-    private int fromParticipantId;
-    private int forParticipantId;
+    private int ownerId;
+    private int foresterId;
 
-    public Participants(int id, int fromParticipant, int forParticipant) {
+    public Participants(int id, int fromOwner, int forForester) {
         this.id = id;
-        this.fromParticipantId = fromParticipant;
-        this.forParticipantId = forParticipant;
+        this.ownerId = fromOwner;
+        this.foresterId = forForester;
+    }
+
+    public Participants(int fromOwner, int forForester) {
+        this.ownerId = fromOwner;
+        this.foresterId = forForester;
     }
 
     public int getId() {
@@ -19,19 +24,19 @@ public class Participants {
         this.id = id;
     }
 
-    public int getFromParticipantId() {
-        return fromParticipantId;
+    public int getOwnerId() {
+        return ownerId;
     }
 
-    public void setFromParticipantId(int fromParticipantId) {
-        this.fromParticipantId = fromParticipantId;
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 
-    public int getForParticipantId() {
-        return forParticipantId;
+    public int getForesterId() {
+        return foresterId;
     }
 
-    public void setForParticipantId(int forParticipantId) {
-        this.forParticipantId = forParticipantId;
+    public void setForesterId(int foresterId) {
+        this.foresterId = foresterId;
     }
 }
