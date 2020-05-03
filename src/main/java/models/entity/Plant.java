@@ -1,18 +1,27 @@
 package models.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 public class Plant {
     private int id;
     private String name;
     private String description;
-    private Date planting;
-    private Date survey;
+    private Timestamp planting;
+    private Timestamp survey;
     private int parkId;
 
-    public Plant(int id, String name, String description, Date planting, Date survey, int parkId) {
+
+    public Plant(int id, String name, String description, Timestamp planting, Timestamp survey, int parkId) {
         this.id = id;
+        this.name = name;
+        this.description = description;
+        this.planting = planting;
+        this.survey = survey;
+        this.parkId = parkId;
+    }
+
+    public Plant(String name, String description, Timestamp planting, Timestamp survey, int parkId) {
         this.name = name;
         this.description = description;
         this.planting = planting;
@@ -44,19 +53,19 @@ public class Plant {
         this.description = description;
     }
 
-    public Date getPlanting() {
+    public Timestamp getPlanting() {
         return planting;
     }
 
-    public void setPlanting(Date planting) {
+    public void setPlanting(Timestamp planting) {
         this.planting = planting;
     }
 
-    public Date getSurvey() {
+    public Timestamp getSurvey() {
         return survey;
     }
 
-    public void setSurvey(Date survey) {
+    public void setSurvey(Timestamp survey) {
         this.survey = survey;
     }
 
@@ -82,5 +91,17 @@ public class Plant {
     @Override
     public int hashCode() {
         return Objects.hash(id, planting, survey, parkId);
+    }
+
+    @Override
+    public String toString() {
+        return "Plant{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", planting=" + planting +
+                ", survey=" + survey +
+                ", parkId=" + parkId +
+                '}';
     }
 }
