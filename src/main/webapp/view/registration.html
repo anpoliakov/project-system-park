@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Registration</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<header>
+		<h1>Registration</h1>
+	</header>
+
+	<main>
+		<section  id="sectionRegistration">
+			<form method="POST" id="formRegistration">
+				<div class="paragraphForm">
+					<label for="name"> Name: </label>
+					<input type="text" name="name" id="name" class="field"><br>	
+				</div>
+				
+				<div class="paragraphForm">
+					<label for="middleName">Middle name:</label>
+					<input type="text" name="middleName" id="middleName" class="field">
+				</div>
+
+				<p class="paragraphForm">
+					<label for="lastName">Last name:</label>
+					<input type="text" name="lastName" id="lastName" class="field">
+				</p>
+
+				<p class="paragraphForm">
+					<label for="login">Desired LOGIN:</label>
+					<input type="text" name="login" id="login" class="field">
+				</p>
+
+				<p class="paragraphForm">
+					<label for="password">Desired PASSWORD:</label>
+					<input type="password" name="password" id="password" class="field">
+				</p>
+
+				<p class="paragraphForm">
+					<label for="email">Email:</label>
+					<input type="email" name="email" id="email" class="field">
+				</p>
+
+				<p class="paragraphForm">
+					Role:
+					<label for="roleOwner"> OWNER </label>
+					<input type="radio" name="role" value="owner" id="roleOwner" class="fieldRadio field">
+
+					<label for="roleForester"> FORESTER </label>
+					<input type="radio" name="role" value="forester" id="roleForester" checked class="fieldRadio field">
+				</p>
+			</form>
+
+			<!--НАЗАД-->
+			<div class="buttonBack"><a href="systemPark.html"> Return Back </a></div>
+			<!--ОТПРАВИТЬ-->
+			<input class="buttonSend" type="button" name="sendForm" value="Send >" id="registerButton">
+
+		</section>
+	</main>
+
+	<footer></footer>
+	<script type="text/javascript" src="js/registration.js"></script>
+</body>
+</html>

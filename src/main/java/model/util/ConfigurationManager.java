@@ -55,27 +55,27 @@ public final class ConfigurationManager {
 
     // получение из properties имени юзера для БД
     public String getUserNameDB(){
-        return properties.getProperty("userNameDB");
+        return properties.getProperty("USER_NAME_DB");
     }
 
     // получение из properties пароля к БД
     public String getPasswordDB(){
-        return properties.getProperty("passwordDB");
+        return properties.getProperty("PASSWORD_DB");
     }
 
     // получение из properties пути к драйверу
     public String getDriverDB(){
-        return properties.getProperty("driverDB");
+        return properties.getProperty("DRIVER_DB");
     }
 
     // получение из properties URL для подключения
     public String getUrlDB(){
-        return properties.getProperty("urlDB");
+        return properties.getProperty("URL_DB");
     }
 
     // Получаем нужный размер для Connection pool
     public int getSizePool(){
-        return Integer.parseInt(properties.getProperty("sizePool"));
+        return Integer.parseInt(properties.getProperty("SIZE_POOL"));
     }
 
 
