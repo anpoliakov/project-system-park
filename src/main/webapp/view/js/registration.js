@@ -1,15 +1,12 @@
 let buttonSendForm = document.getElementById('registerButton');
 
 buttonSendForm.onclick = function(){
-    // event.preventDefault();
     let user = makeUserObject();
-    // if(validateUser(user)){
-        
-    // }
-    console.log(user);
-    let str = "Hello 505";
-    let regex1 = /\d+/;
-    console.log(str.match(regex1));
+
+    if(validateUser(user) == true){
+        delete user["repeatPassword"];
+        sendDataForm(user);
+    }
 }
 
 function makeUserObject(){
@@ -36,6 +33,54 @@ function makeUserObject(){
 }
 
 function validateUser(user){
-    let str = "Hello";
-    str.match()
+    // regExp выражения (шаблоны)
+    let templateFullName = /^([a-zA-Z]+)$|^([а-яА-ЯёЁ]+)$/;
+    let templateLoginAndPassword = /^[a-zA-Z0-9_]+$/;
+    let templateEmail = /^[\w_.]{3,}@([a-z]{2,})\.[a-z]{2,4}$/;
+
+    let divWithErrors = document.getElementById("divWithErrors");
+    let statusOperation = false;
+
+    if(templateFullName.test(user.name) != true){
+        divWithErrors.innerText = "Name error";
+    }else if (templateFullName.test(user.middleName) != true){
+        divWithErrors.innerText = "Error in middle name";
+    }else if (templateFullName.test(user.lastName) != true){
+        divWithErrors.innerText = "Last name error";
+    }else if (templateLoginAndPassword.test(user.login) != true){
+        divWithErrors.innerText = "Error in login";
+    }else if (templateLoginAndPassword.test(user.password) != true){
+        divWithErrors.innerText = "Error in password";
+    }else if (user.password != user.repeatPassword){
+        divWithErrors.innerText = "Passwords aren't the same";
+    }else if (templateEmail.test(user.email) != true){
+        divWithErrors.innerText = "Error in email";
+    }else{
+        statusOperation = true;
+        divWithErrors.innerText = "";
+    }
+    return statusOperation;
+}
+
+function sendDataForm(user){
+    let json = JSON.stringify(user);
+    console.log(json); 
+    let xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+    
+            if (xhr.status == 200 || xhr.status == 304) {
+                console.log("OK"); 
+            } else {
+                alert("ERROR");
+            }
+    
+        }
+    }
+
+    // xhr.responseType = "text";
+    xhr.open("POST", "/systempark/mainservlet", true); 
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.send(json);
 }
