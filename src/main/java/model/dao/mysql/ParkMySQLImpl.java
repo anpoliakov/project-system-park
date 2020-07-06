@@ -1,15 +1,17 @@
-package models.dao.mysql;
+package model.dao.mysql;
 
-import models.dao.ParkDAO;
-import models.dao.generic.GenericMySQLImpl;
-import models.entity.Park;
-import models.util.Constants;
+import model.dao.ParkDAO;
+import model.dao.generic.GenericMySQLImpl;
+import model.entity.Park;
+import model.util.Constants;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParkMySQLImpl extends GenericMySQLImpl implements ParkDAO {
     final static Logger logger = Logger.getLogger(ParkMySQLImpl.class);
@@ -63,20 +65,21 @@ public class ParkMySQLImpl extends GenericMySQLImpl implements ParkDAO {
     }
 
     @Override
-    public Park getParkByOwnerId(int ownerId) {
-        String requestSQL = manager.getSQLRequest("GET_PARK_BY_OWNER_ID");
+    public List<Park> getParksByOwnerId(int ownerId) {
+        String requestSQL = manager.getSQLRequest("GET_PARKS_BY_OWNER_ID");
         Connection connection = pool.getConnection();
         ResultSet resultSet = null;
-        Park park = null;
+        List <Park> parks = null;
 
         try(PreparedStatement statement = connection.prepareStatement(requestSQL)) {
             statement.setInt(1, ownerId);
+            parks = new ArrayList<>();
 
             resultSet = statement.executeQuery();
-            if(resultSet.next()){
+            while(resultSet.next()){
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
-                park = new Park(id, name, ownerId);
+                parks.add(new Park(id,name,ownerId));
             }
         } catch (SQLException e) {
             logger.error("Error in SQL request",e);
@@ -84,7 +87,7 @@ public class ParkMySQLImpl extends GenericMySQLImpl implements ParkDAO {
             pool.closeResultSet(resultSet);
             pool.returnConnection(connection);
         }
-        return park;
+        return parks;
     }
 
     @Override

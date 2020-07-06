@@ -1,7 +1,7 @@
-package models.dao;
+package model.dao;
 
-import models.entity.Participants;
-import models.entity.Person;
+import model.entity.Participants;
+import model.entity.Person;
 
 import java.util.List;
 

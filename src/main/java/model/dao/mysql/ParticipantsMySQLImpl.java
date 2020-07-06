@@ -1,10 +1,10 @@
-package models.dao.mysql;
+package model.dao.mysql;
 
-import models.dao.ParticipantsDAO;
-import models.dao.generic.GenericMySQLImpl;
-import models.entity.Participants;
-import models.entity.Person;
-import models.util.Constants;
+import model.dao.ParticipantsDAO;
+import model.dao.generic.GenericMySQLImpl;
+import model.entity.Participants;
+import model.entity.Person;
+import model.util.Constants;
 import org.apache.log4j.Logger;
 
 import java.sql.*;

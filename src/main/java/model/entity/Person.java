@@ -1,7 +1,14 @@
-package models.entity;
+package model.entity;
 
+
+import model.dao.RoleDAO;
+import model.factory.FactoryAbstract;
+import model.factory.FactoryMySQL;
+
+import java.util.Objects;
 
 public class Person {
+    private FactoryAbstract factoryMySQL;
     private int id;
     private String name;
     private String middleName;
@@ -9,7 +16,11 @@ public class Person {
     private String login;
     private String password;
     private String email;
+
+    // поле с ID роли из БД
     private int roleId;
+    // поле с именем роли
+    private String role;
 
     public Person(int id, String name, String middleName, String lastName, String login, String password, String email, int roleId) {
         this.id = id;
@@ -20,6 +31,11 @@ public class Person {
         this.password = password;
         this.email = email;
         this.roleId = roleId;
+
+        //получаем string имя роли
+        factoryMySQL = new FactoryMySQL();
+        RoleDAO roleDAOImpl = factoryMySQL.getRoleDAOImpl();
+        role = roleDAOImpl.getRoleById(roleId).getName().toLowerCase();
     }
 
     public Person(String name, String middleName, String lastName, String login, String password, String email, int roleId) {
@@ -30,6 +46,27 @@ public class Person {
         this.password = password;
         this.email = email;
         this.roleId = roleId;
+
+        //получаем string имя роли
+        factoryMySQL = new FactoryMySQL();
+        RoleDAO roleDAOImpl = factoryMySQL.getRoleDAOImpl();
+        role = roleDAOImpl.getRoleById(roleId).getName().toLowerCase();
+    }
+
+    //конструктор который по параметру создаёт Person без roleID - НО с именем роли (используется при регистрации)
+    public Person(String name, String middleName, String lastName, String login, String password, String email, String role) {
+        this.name = name;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
+    public Person(String login, String password) {
+        this.login = login;
+        this.password = password;
     }
 
     public int getId() {
@@ -96,16 +133,45 @@ public class Person {
         this.roleId = roleId;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return id == person.id &&
+                Objects.equals(name, person.name) &&
+                Objects.equals(middleName, person.middleName) &&
+                Objects.equals(lastName, person.lastName) &&
+                Objects.equals(login, person.login) &&
+                Objects.equals(password, person.password) &&
+                Objects.equals(email, person.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, middleName, lastName, login, password, email);
+    }
+
     @Override
     public String toString() {
         return "Person{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", roleId=" + roleId +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

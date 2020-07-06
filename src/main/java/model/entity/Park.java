@@ -1,4 +1,4 @@
-package models.entity;
+package model.entity;
 
 public class Park {
     private int  id;
@@ -38,5 +38,14 @@ public class Park {
 
     public void setOwnerId(int  ownerId) {
         this.ownerId = ownerId;
+    }
+
+    @Override
+    public String toString() {
+        return "Park{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", ownerId=" + ownerId +
+                '}';
     }
 }

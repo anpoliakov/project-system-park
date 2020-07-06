@@ -1,9 +1,9 @@
-package models.dao.mysql;
+package model.dao.mysql;
 
-import models.dao.RoleDAO;
-import models.dao.generic.GenericMySQLImpl;
-import models.entity.Role;
-import models.util.Constants;
+import model.dao.RoleDAO;
+import model.dao.generic.GenericMySQLImpl;
+import model.entity.Role;
+import model.util.Constants;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -55,6 +55,35 @@ public class RoleMySQLImpl extends GenericMySQLImpl implements RoleDAO {
             pool.returnConnection(connection);
         }
         return role;
+    }
+
+    @Override
+    public int getRoleIdByName(String name) {
+        String requestSQL = manager.getSQLRequest("GET_ROLE_ID_BY_NAME");
+        Connection connection = pool.getConnection();
+        ResultSet resultSet = null;
+        int roleId = Constants.ERROR_OPERATION;
+
+        try(PreparedStatement statement = connection.prepareStatement(requestSQL)){
+            statement.setString(1, getPreparedName(name));
+            resultSet = statement.executeQuery();
+
+            if(resultSet.next()){
+                roleId = resultSet.getInt("id");
+            }
+        } catch (SQLException e) {
+            logger.error("Error in PreparedStatement or ResultSet, look that class",e);
+        }finally {
+            pool.returnConnection(connection);
+            if(resultSet != null){ // is it true?
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    logger.error("Error in RoleMySQLImpl -> method getRoleIdByName, look that method",e);
+                }
+            }
+        }
+        return roleId;
     }
 
     @Override

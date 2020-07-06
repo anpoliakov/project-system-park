@@ -1,4 +1,4 @@
-package models.util;
+package model.util;
 
 import org.apache.log4j.Logger;
 

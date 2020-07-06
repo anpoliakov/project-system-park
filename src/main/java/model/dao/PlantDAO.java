@@ -1,6 +1,6 @@
-package models.dao;
+package model.dao;
 
-import models.entity.Plant;
+import model.entity.Plant;
 
 import java.util.List;
 

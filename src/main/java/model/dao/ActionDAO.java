@@ -1,6 +1,6 @@
-package models.dao;
+package model.dao;
 
-import models.entity.Action;
+import model.entity.Action;
 import java.util.List;
 
 public interface ActionDAO {

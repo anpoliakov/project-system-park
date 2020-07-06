@@ -1,6 +1,4 @@
-package models.dao.generic;
-
-import java.util.List;
+package model.dao.generic;
 
 public interface GenericDAO <T> {
 

@@ -1,7 +1,7 @@
-package models.dao.generic;
+package model.dao.generic;
 
-import models.util.ConfigurationManager;
-import models.util.ConnectionPool;
+import model.util.ConfigurationManager;
+import model.util.ConnectionPool;
 
 public abstract class GenericMySQLImpl <T> implements GenericDAO <T>{
     protected ConnectionPool pool;

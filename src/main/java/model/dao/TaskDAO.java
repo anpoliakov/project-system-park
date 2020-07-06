@@ -1,6 +1,4 @@
-package models.dao;
-
-import models.entity.Task;
+package model.dao;
 
 public interface TaskDAO {
 

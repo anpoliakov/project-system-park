@@ -1,7 +1,7 @@
-package models.factory;
+package model.factory;
 
-import models.dao.*;
-import models.dao.mysql.*;
+import model.dao.*;
+import model.dao.mysql.*;
 
 public class FactoryMySQL extends FactoryAbstract {
 

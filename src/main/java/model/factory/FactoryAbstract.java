@@ -1,6 +1,6 @@
-package models.factory;
+package model.factory;
 
-import models.dao.*;
+import model.dao.*;
 
 public abstract class FactoryAbstract {
     // нужна для создпния конкретной фабрики под определённую БД

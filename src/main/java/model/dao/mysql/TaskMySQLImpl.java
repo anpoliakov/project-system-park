@@ -1,7 +1,7 @@
-package models.dao.mysql;
+package model.dao.mysql;
 
-import models.dao.TaskDAO;
-import models.dao.generic.GenericMySQLImpl;
+import model.dao.TaskDAO;
+import model.dao.generic.GenericMySQLImpl;
 
 public class TaskMySQLImpl extends GenericMySQLImpl implements TaskDAO {
 

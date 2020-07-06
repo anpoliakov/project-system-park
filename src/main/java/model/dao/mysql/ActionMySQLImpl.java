@@ -1,9 +1,9 @@
-package models.dao.mysql;
+package model.dao.mysql;
 
-import models.dao.ActionDAO;
-import models.dao.generic.GenericMySQLImpl;
-import models.entity.Action;
-import models.util.Constants;
+import model.dao.ActionDAO;
+import model.dao.generic.GenericMySQLImpl;
+import model.entity.Action;
+import model.util.Constants;
 import org.apache.log4j.Logger;
 
 import java.sql.*;

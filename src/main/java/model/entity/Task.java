@@ -1,4 +1,4 @@
-package models.entity;
+package model.entity;
 
 public class Task {
     private int id;

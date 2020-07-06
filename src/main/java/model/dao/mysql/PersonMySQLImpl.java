@@ -236,6 +236,73 @@ public class PersonMySQLImpl extends GenericMySQLImpl implements PersonDAO {
         return person;
     }
 
+    @Override
+    public boolean setCookie(int idPerson, String cookie) {
+        String requestSQL = manager.getSQLRequest("UPDATE_COOKIE");
+        Connection connection = pool.getConnection();
+        boolean resultOperation = false;
+
+        try(PreparedStatement statement = connection.prepareStatement(requestSQL)) {
+            statement.setString(1, cookie);
+            statement.setInt(2, idPerson);
+
+            if(statement.executeUpdate() > 0){
+                resultOperation = true;
+            }
+        } catch (SQLException e) {
+            logger.error("Error in statement, look class",e);
+        }finally {
+            pool.returnConnection(connection);
+        }
+
+        return resultOperation;
+    }
+
+    @Override
+    public String getCookie(int idPerson) {
+        String requestSQL = manager.getSQLRequest("GET_COOKIE");
+        Connection connection = pool.getConnection();
+        String resultRequest = null;
+        ResultSet resultSet = null;
+
+        try(PreparedStatement statement = connection.prepareStatement(requestSQL)) {
+            statement.setInt(1, idPerson);
+            resultSet = statement.executeQuery();
+
+            if(resultSet.next()){
+                resultRequest = resultSet.getString("cookie");
+            }
+        } catch (SQLException e) {
+            logger.error("Error in statement, look class",e);
+        }finally {
+            pool.closeResultSet(resultSet);
+            pool.returnConnection(connection);
+        }
+        return resultRequest;
+    }
+
+
+    @Deprecated // пока метод не использую
+    @Override
+    public boolean delCookie(int idPerson) {
+        String requestSQL = manager.getSQLRequest("DEL_COOKIE");
+        Connection connection = pool.getConnection();
+        boolean resultOperation = false;
+
+        try(PreparedStatement statement = connection.prepareStatement(requestSQL)) {
+            statement.setInt(1, idPerson);
+
+            if(statement.executeUpdate() > 0){
+                resultOperation = true;
+            }
+        } catch (SQLException e) {
+            logger.error("Error in statement, look class",e);
+        }finally {
+            pool.returnConnection(connection);
+        }
+        return resultOperation;
+    }
+
     // Метод для хэширования пароля (используем зависимость Commons-codec)
     private String getMD5Hash(String text){
         return DigestUtils.md5Hex(text);

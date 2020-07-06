@@ -1,10 +1,12 @@
-package models.dao;
+package model.dao;
 
-import models.entity.Park;
+import model.entity.Park;
+
+import java.util.List;
 
 public interface ParkDAO {
     int addPark(Park park);
     Park getParkById(int id);
-    Park getParkByOwnerId(int ownerId);
+    List<Park> getParksByOwnerId(int ownerId);
     boolean deleteParkById(int id);
 }

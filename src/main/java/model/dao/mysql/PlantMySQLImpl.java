@@ -1,14 +1,13 @@
-package models.dao.mysql;
+package model.dao.mysql;
 
-import models.dao.PlantDAO;
-import models.dao.generic.GenericMySQLImpl;
-import models.entity.Plant;
-import models.util.Constants;
+import model.dao.PlantDAO;
+import model.dao.generic.GenericMySQLImpl;
+import model.entity.Plant;
+import model.util.Constants;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PlantMySQLImpl extends GenericMySQLImpl implements PlantDAO {
